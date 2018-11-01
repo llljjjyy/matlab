@@ -1,0 +1,40 @@
+x0 = [0, 1, 1, 0, 0];
+y0 = [0, 0, 1, 1, 0];
+N = 100;
+x= rand(1,N);
+y= rand(1,N);
+u= rand(1,N)-0.5;
+v= rand(1,N)-0.5;
+R = rand(1,N)*0.01;
+dt = 0.03;
+for i = 1 : 30/dt
+  clf
+  hold on
+  axis equal
+  axis off
+  plot(x0, y0);
+    if i == 1
+        a = x;
+        b = y;
+    else
+        a = a + dt*u;
+        b = b + dt*v;
+    end  
+  for j=1:N
+     if a(j)>1-R(j)
+         a(j)=1-R(j);
+         u(j)=-u(j);
+     elseif a(j)<R(j)
+         a(j)=R(j);           
+         u(j)=-u(j);
+     elseif b(j)>1-R(j)
+         b(j)=1-R(j);
+         v(j)=-v(j);
+     elseif b(j)<R(j)
+         b(j)=R(j);
+         v(j)=-v(j);
+     end
+  end
+  plot (a,b,'ro');
+  pause(dt);
+end                              % 未小球间的碰撞
